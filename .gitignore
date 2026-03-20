@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.env
+.DS_Store
+*.log
+coverage/
+build/
+.gemini/
+context.md
+design.md
+PRD.md
+techstack.md
