@@ -1,0 +1,54 @@
+{
+  "manifest_version": 3,
+  "name": "TabMind",
+  "version": "1.0.0",
+  "description": "Never forget why you opened a tab again.",
+  "permissions": [
+    "tabs",
+    "storage",
+    "scripting",
+    "alarms",
+    "notifications",
+    "windows"
+  ],
+  "host_permissions": [
+    "http://localhost:5000/*",
+    "https://api.tabmind.app/*",
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "src/background/service-worker.ts",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content/intent-overlay.tsx", "src/content/hover-card.tsx", "src/content/auth-sync.ts"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "src/popup/popup.html",
+    "default_icon": {
+      "16": "public/icons/icon16.png",
+      "32": "public/icons/icon32.png",
+      "48": "public/icons/icon48.png",
+      "128": "public/icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "public/icons/icon16.png",
+    "32": "public/icons/icon32.png",
+    "48": "public/icons/icon48.png",
+    "128": "public/icons/icon128.png"
+  },
+  "commands": {
+    "open_hover_card": {
+      "suggested_key": {
+        "default": "Alt+I",
+        "mac": "Alt+I"
+      },
+      "description": "Open TabMind Hover Card"
+    }
+  }
+}
