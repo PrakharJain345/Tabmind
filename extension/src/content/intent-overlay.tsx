@@ -1,5 +1,5 @@
 /**
- * TabMind — Intent Overlay Content Script
+ * TabMind â€” Intent Overlay Content Script
  *
  * Injected into every new tab page by the service worker.
  * Renders a floating UI prompt asking "Why did you open this tab?"
@@ -10,160 +10,178 @@
  */
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import ReactDOM from 'react-dom/client';
-
-// ─── Constants ────────────────────────────────────────────────────────────────
+import ReactDOM from 'react-dom/client';// --- Constants ---
 const OVERLAY_ROOT_ID = 'tabmind-overlay';
 
-// ─── Types ────────────────────────────────────────────────────────────────────
+// --- Types ---
 type OverlayState = 'hidden' | 'entering' | 'visible' | 'leaving';
 
-// ─── Keyframe CSS injected into the Shadow DOM ────────────────────────────────
 const SHADOW_CSS = `
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap');
 
-  * { box-sizing: border-box; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
   @keyframes slideIn {
-    from { opacity: 0; transform: translateX(20px) scale(0.95); }
-    to   { opacity: 1; transform: translateX(0) scale(1); }
+    from { opacity: 0; transform: translateY(-12px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
   }
 
   @keyframes slideOut {
-    from { opacity: 1; transform: translateX(0) scale(1); }
-    to   { opacity: 0; transform: translateX(20px) scale(0.95); }
+    from { opacity: 1; transform: translateY(0) scale(1); }
+    to   { opacity: 0; transform: translateY(-8px) scale(0.98); }
   }
+
   .overlay {
     position: fixed;
-    top: 20px;
-    right: 20px;
-    width: 320px;
-    background: rgba(15, 15, 26, 0.95);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(124, 58, 237, 0.3);
+    top: 24px;
+    right: 24px;
+    width: 280px;
+    background: rgba(8, 8, 12, 0.98);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 20px;
-    padding: 20px;
+    padding: 24px 24px 20px;
     box-shadow:
-      0 4px 6px rgba(0,0,0,0.4),
-      0 16px 40px rgba(0,0,0,0.4),
-      0 0 0 1px rgba(124, 58, 237, 0.1),
-      0 8px 40px rgba(124, 58, 237, 0.15);
+      0 4px 12px rgba(0,0,0,0.5),
+      0 32px 64px rgba(0,0,0,0.6),
+      0 0 0 1px rgba(255,255,255,0.03);
     z-index: 2147483647;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Inter', -apple-system, sans-serif;
     color: #F8FAFC;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .overlay[data-state="entering"] {
-    animation: slideIn 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    animation: slideIn 0.4s cubic-bezier(0.2, 1, 0.2, 1) forwards;
   }
-
   .overlay[data-state="leaving"] {
-    animation: slideOut 0.18s ease-in forwards;
+    animation: slideOut 0.25s ease-in forwards;
   }
 
-  .emoji {
-    font-size: 24px;
-    margin-bottom: 8px;
-    display: block;
-    line-height: 1;
+  .logo {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: linear-gradient(to right, #FFFFFF, #94A3B8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .divider {
+    width: 30px;
+    height: 1px;
+    background: rgba(255,255,255,0.2);
+    margin-bottom: 16px;
   }
 
   .question {
-    font-size: 14px;
-    font-weight: 600;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 500;
+    font-style: italic;
     color: #F8FAFC;
-    margin: 0 0 4px 0;
-    line-height: 1.4;
+    margin-bottom: 6px;
+    text-align: center;
+    line-height: 1.2;
   }
 
   .hint {
-    font-size: 11px;
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
     color: #475569;
-    margin: 0 0 12px 0;
+    margin-bottom: 20px;
+    text-align: center;
   }
 
   .input {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    border-radius: 10px;
-    padding: 10px 14px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    border-radius: 0;
+    padding: 8px 0;
     font-size: 14px;
     color: #F8FAFC;
     width: 100%;
     outline: none;
-    font-family: inherit;
-    transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-style: italic;
+    transition: border-bottom-color 0.3s ease;
+    text-align: center;
   }
-
   .input::placeholder {
-    color: #475569;
+    color: #334155;
+    opacity: 0.8;
   }
-
   .input:focus {
-    border-color: #7C3AED;
-    box-shadow: 0 0 0 1px rgba(124,58,237,0.5), 0 4px 20px rgba(124,58,237,0.25);
-    background: rgba(255, 255, 255, 0.06);
+    border-bottom-color: #FFFFFF;
   }
 
   .button-row {
     display: flex;
-    gap: 8px;
-    margin-top: 12px;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 24px;
+    width: 100%;
   }
 
   .btn-primary {
-    flex: 1;
-    background: #7C3AED;
-    color: white;
+    width: 100%;
+    background: #F8FAFC;
+    color: #08080C;
     border: none;
-    border-radius: 10px;
-    padding: 10px 16px;
-    font-size: 13px;
-    font-weight: 600;
+    border-radius: 8px;
+    padding: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     cursor: pointer;
-    font-family: inherit;
-    transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
-    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+    transition: all 0.3s ease;
   }
-
-  .btn-primary:hover {
-    background: #8B5CF6;
-    box-shadow: 0 4px 20px rgba(124, 58, 237, 0.5);
+  .btn-primary:hover:not(:disabled) {
+    background: #FFFFFF;
     transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(255,255,255,0.15);
   }
-
-  .btn-primary:active {
-    transform: translateY(0);
-  }
-
+  .btn-primary:active { transform: translateY(0); }
   .btn-primary:disabled {
-    opacity: 0.5;
+    opacity: 0.2;
     cursor: not-allowed;
-    transform: none;
   }
 
   .btn-secondary {
     background: transparent;
-    color: #94A3B8;
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    border-radius: 10px;
-    padding: 10px 16px;
-    font-size: 13px;
+    color: #475569;
+    border: none;
+    padding: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
     font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     cursor: pointer;
-    font-family: inherit;
-    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    transition: color 0.2s ease;
+    align-self: center;
   }
-
   .btn-secondary:hover {
-    background: #16162A;
-    color: #F8FAFC;
-    border-color: rgba(124, 58, 237, 0.50);
+    color: #94A3B8;
   }
 `;
 
-// ─── The Overlay React component ──────────────────────────────────────────────
+// --- The Overlay React component ---
 const IntentOverlay: React.FC<{ tabId: number; onDismiss: () => void }> = ({ tabId, onDismiss }) => {
   const [intent, setIntent] = useState('');
   const [state, setState] = useState<OverlayState>('hidden');
@@ -227,17 +245,20 @@ const IntentOverlay: React.FC<{ tabId: number; onDismiss: () => void }> = ({ tab
 
   return (
     <div className="overlay" data-state={state === 'leaving' ? 'leaving' : 'entering'}>
-      {/* Header */}
-      <span className="emoji">🧠</span>
-      <p className="question">Why did you open this?</p>
-      <p className="hint">5 words is enough</p>
+      {/* Brand Wordmark — Replaces Brain Logo */}
+      <div className="logo">TabMind</div>
+      
+      <div className="divider" />
 
-      {/* Input */}
+      <p className="question">Why did you open this?</p>
+      <p className="hint">brief intent preferred</p>
+
+      {/* Modern Underline Input */}
       <input
         ref={inputRef}
         className="input"
         type="text"
-        placeholder="e.g. research for project report"
+        placeholder="e.g. market research"
         value={intent}
         onChange={(e) => setIntent(e.target.value)}
         onKeyDown={handleKeyDown}
@@ -246,24 +267,24 @@ const IntentOverlay: React.FC<{ tabId: number; onDismiss: () => void }> = ({ tab
         spellCheck={false}
       />
 
-      {/* Action buttons */}
+      {/* Modern Buttons */}
       <div className="button-row">
         <button
           className="btn-primary"
           onClick={handleSave}
           disabled={!intent.trim()}
         >
-          Save ✓
+          Save Intent
         </button>
         <button className="btn-secondary" onClick={handleSkip}>
-          Skip
+          Skip for now
         </button>
       </div>
     </div>
   );
 };
 
-// ─── Mount logic (isolated Shadow DOM) ────────────────────────────────────────
+// â”€â”€â”€ Mount logic (isolated Shadow DOM) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 async function mountOverlay() {
   // 1. Bail if already mounted
@@ -353,7 +374,6 @@ async function checkExistingIntent(tabId: number): Promise<boolean> {
   });
 }
 
-// ─── Entry point ──────────────────────────────────────────────────────────────
 mountOverlay().catch(() => {
   // Silently consume — content scripts must never throw unhandled exceptions
 });
