@@ -22,10 +22,8 @@ const Login = () => {
         boxShadow: '0 0 0 1px rgba(14,165,233,0.1), 0 8px 32px rgba(0,0,0,0.4)',
       }}>
         <div style={{
-          display: 'flex', alignItems: 'center', gap: 8,
-          background: 'rgba(14,165,233,0.15)', border: '1px solid rgba(14,165,233,0.3)',
-          borderRadius: 10, padding: '6px 14px',
-          fontFamily: 'Syne, sans-serif', fontSize: 16, fontWeight: 700, color: '#F8FAFC',
+          display: 'flex', alignItems: 'center', padding: '6px 14px',
+          fontFamily: '"Cinzel Decorative", serif', fontSize: 26, fontWeight: 700, letterSpacing: '0.05em', color: '#F8FAFC',
         }}>
           TabMind
         </div>

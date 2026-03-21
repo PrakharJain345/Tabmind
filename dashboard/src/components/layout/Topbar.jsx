@@ -11,8 +11,11 @@ const Topbar = () => {
 
   return (
     <header className="flex items-center justify-between py-6 px-8 border-b border-[var(--border-subtle)]">
-      <div className="font-display text-2xl font-bold text-text-primary">
-        Here's your day, <span className="bg-gradient-to-r from-[var(--purple-300)] to-[var(--pink-400)] bg-clip-text text-fill-transparent text-transparent">
+      <div className="font-display text-2xl font-bold text-text-primary flex items-baseline">
+        Here's your day, <span 
+          style={{ fontFamily: '"Great Vibes", cursive' }}
+          className="text-[40px] leading-none tracking-wide ml-2 mr-1 bg-gradient-to-r from-[var(--purple-300)] to-[var(--pink-400)] bg-clip-text text-fill-transparent text-transparent"
+        >
           {user?.name || 'Explorer'}
         </span>!
       </div>

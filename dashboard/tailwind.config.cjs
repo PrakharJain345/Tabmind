@@ -31,6 +31,8 @@ module.exports = {
       fontFamily: {
         display: ['Syne', 'sans-serif'],
         ui:      ['Inter', 'sans-serif'],
+        calligraphy: ['"Great Vibes"', 'cursive'],
+        brand: ['"Playfair Display"', 'serif'],
       },
       borderRadius: {
         'sm': '6px',

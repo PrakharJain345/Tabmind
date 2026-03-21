@@ -30,7 +30,10 @@ const Sidebar = () => {
 
   return (
     <aside className="fixed left-0 top-0 h-screen w-[240px] bg-[rgba(15,15,26,0.8)] backdrop-blur-[20px] border-r border-[var(--border-subtle)] py-6 px-3 flex flex-col z-50">
-      <div className="font-display text-lg font-bold text-text-primary px-3 mb-10 tracking-tight">
+      <div 
+        className="px-3 mb-10 text-transparent bg-clip-text bg-gradient-to-r from-white to-[var(--text-secondary)]"
+        style={{ fontFamily: '"Cinzel Decorative", serif', fontSize: '28px', fontWeight: 700, letterSpacing: '0.05em' }}
+      >
         TabMind
       </div>
 
