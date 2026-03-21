@@ -68,9 +68,9 @@ const Dashboard = () => {
     { name: 'Rate', value: stats.fulfillmentRate || 0, fill: 'var(--success)' },
   ];
 
-  // Prepare top domains for Bar Chart
-  const topDomainsData = patterns?.topDomains?.slice(0, 5).map(domain => ({
-    name: domain._id,
+  // Prepare top domains for Bar Chart (comes from stats overview)
+  const topDomainsData = stats?.topDomains?.slice(0, 5).map(domain => ({
+    name: domain.domain, // it returns { domain: 'youtube.com', count: x }
     count: domain.count,
   })) || [];
 
@@ -185,21 +185,27 @@ const Dashboard = () => {
         <Card className="flex flex-col min-h-[180px]">
           <h3 className="card-title">Top Domains</h3>
           <div className="h-[120px] w-full mt-auto">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={topDomainsData} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
-                <XAxis dataKey="name" tick={{ fontSize: 10, fill: 'var(--text-muted)' }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fontSize: 10, fill: 'var(--text-muted)' }} axisLine={false} tickLine={false} />
-                <Tooltip 
-                  cursor={{ fill: 'var(--bg-elevated)' }} 
-                  contentStyle={{ backgroundColor: 'var(--bg-overlay)', borderColor: 'var(--border-subtle)', borderRadius: '8px', fontSize: '12px' }} 
-                />
-                <Bar dataKey="count" radius={[4, 4, 0, 0]}>
-                  {topDomainsData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={index === 0 ? 'var(--purple-400)' : 'var(--purple-500)'} opacity={1 - index * 0.15} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
+            {topDomainsData.length === 0 ? (
+              <div className="h-full w-full flex items-center justify-center">
+                <p className="text-sm text-text-muted italic opacity-80">Browsing data is currently sparse.</p>
+              </div>
+            ) : (
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={topDomainsData} margin={{ top: 10, right: 0, left: -20, bottom: 0 }}>
+                  <XAxis dataKey="name" tick={{ fontSize: 10, fill: 'var(--text-muted)' }} axisLine={false} tickLine={false} />
+                  <YAxis tick={{ fontSize: 10, fill: 'var(--text-muted)' }} axisLine={false} tickLine={false} />
+                  <Tooltip 
+                    cursor={{ fill: 'var(--bg-elevated)' }} 
+                    contentStyle={{ backgroundColor: 'var(--bg-overlay)', borderColor: 'var(--border-subtle)', borderRadius: '8px', fontSize: '12px' }} 
+                  />
+                  <Bar dataKey="count" radius={[4, 4, 0, 0]}>
+                    {topDomainsData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={index === 0 ? 'var(--purple-400)' : 'var(--purple-500)'} opacity={1 - index * 0.15} />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            )}
           </div>
         </Card>
 
