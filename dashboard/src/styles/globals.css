@@ -1,0 +1,144 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* === BACKGROUNDS === */
+  --bg-base:        #0A0A0F;
+  --bg-surface:     #0F0F1A;
+  --bg-elevated:    #16162A;
+  --bg-overlay:     #1C1C35;
+
+  /* === ACCENT — Primary (Blue) (Replaces Purple) === */
+  --purple-500:     #3B82F6;
+  --purple-400:     #60A5FA;
+  --purple-300:     #93C5FD;
+  --purple-glow:    rgba(59, 130, 246, 0.25);
+
+  /* === ACCENT — Secondary (Teal) (Replaces Pink) === */
+  --pink-500:       #14B8A6;
+  --pink-400:       #2DD4BF;
+  --red-fade:       rgba(20, 184, 166, 0.15);
+
+  /* === TEXT === */
+  --text-primary:   #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted:     #475569;
+  --text-disabled:  #2D3748;
+
+  /* === STATUS COLORS === */
+  --success:        #10B981;
+  --success-bg:     rgba(16, 185, 129, 0.12);
+  --warning:        #F59E0B;
+  --warning-bg:     rgba(245, 158, 11, 0.12);
+  --danger:         #EF4444;
+  --danger-bg:      rgba(239, 68, 68, 0.12);
+  --info:           #3B82F6;
+  --info-bg:        rgba(59, 130, 246, 0.12);
+
+  /* === BORDERS === */
+  --border-subtle:  rgba(255, 255, 255, 0.06);
+  --border-default: rgba(255, 255, 255, 0.10);
+  --border-active:  rgba(59, 130, 246, 0.50);
+
+  /* === RADIUS === */
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   14px;
+  --radius-xl:   20px;
+  --radius-full: 9999px;
+
+  /* === FONTS === */
+  --font-display: 'Syne', sans-serif;
+  --font-ui:      'Inter', sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-bg-base text-text-primary font-ui min-h-screen antialiased;
+    background-color: #0A0A0F;
+    background-image:
+      radial-gradient(
+        ellipse 80% 60% at 0% 100%,
+        rgba(20, 184, 166, 0.18) 0%,
+        transparent 70%
+      ),
+      radial-gradient(
+        ellipse 60% 50% at 100% 0%,
+        rgba(59, 130, 246, 0.12) 0%,
+        transparent 70%
+      ),
+      radial-gradient(
+        ellipse 100% 100% at 50% 50%,
+        rgba(15, 15, 26, 0.8) 0%,
+        transparent 100%
+      );
+  }
+
+  .grid-overlay {
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 6px rgba(16,185,129,0.4); }
+    50%       { box-shadow: 0 0 14px rgba(16,185,129,0.7); }
+  }
+
+  .live-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background-color: var(--success);
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .card-enter {
+    animation: fadeUp 0.25s ease forwards;
+  }
+}
+
+@layer components {
+  .card {
+    background-color: rgba(15, 15, 26, 0.7);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.3);
+    transition: all 0.2s ease;
+  }
+
+  .card:hover {
+    border: 1px solid var(--border-default);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.4), 0 16px 40px rgba(0,0,0,0.4);
+  }
+
+  .card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+  }
+
+  .stat-value {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
