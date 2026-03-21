@@ -82,7 +82,19 @@ async function postTabToBackend(tabRecord: Tab, chromeTabId: number) {
     const response = await api.post<Tab>('/tabs', tabRecord);
     // Save the MongoDB _id onto the local record for future PATCHes
     if (response.data?._id) {
-      await setTab(chromeTabId, { ...tabRecord, _id: response.data._id });
+      const dbId = response.data._id;
+      
+      // CRITICAL FIX: Fetch current local state, do not use stale tabRecord
+      const current = await getTab(chromeTabId); 
+      if (!current) return;
+
+      await setTab(chromeTabId, { ...current, _id: dbId });
+
+      // If the user typed an intent while this POST was resolving, 
+      // the backend has "" but local has the real intent. We must patch it!
+      if (current.intent && current.intent !== tabRecord.intent) {
+        api.patch(`/tabs/${dbId}`, { intent: current.intent }).catch(() => {});
+      }
     }
   } catch {
     // Mark as "needs sync" by storing without _id — the alarm will retry
@@ -97,13 +109,34 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, chromeTab) => {
     if (changeInfo.status !== 'complete') return;
 
     const stored = await getTab(tabId);
-    if (!stored) return;
+    
+    // If not stored yet, but it's now an HTTP page (user navigated from a New Tab)
+    if (!stored) {
+      const url = chromeTab.url || chromeTab.pendingUrl || '';
+      if (url.startsWith('http')) {
+        const tabRecord: Tab = {
+          tabId: chromeTab.id!,
+          windowId: chromeTab.windowId,
+          url,
+          domain: extractDomain(url),
+          title: chromeTab.title || '',
+          favicon: chromeTab.favIconUrl,
+          intent: '',
+          status: 'open',
+          timing: { openedAt: new Date().toISOString() },
+        };
+        await setTab(tabId, tabRecord);
+        postTabToBackend(tabRecord, tabId);
+      }
+      return;
+    }
 
     const updates: Partial<Tab> = {};
 
     if (chromeTab.title) updates.title = chromeTab.title;
     if (chromeTab.favIconUrl) updates.favicon = chromeTab.favIconUrl;
     if (chromeTab.url && chromeTab.url !== stored.url) {
+      if (!chromeTab.url.startsWith('http')) return; // Navigated away from HTTP
       updates.url = chromeTab.url;
       updates.domain = extractDomain(chromeTab.url);
     }
