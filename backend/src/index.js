@@ -72,8 +72,8 @@ initSocket(io);
 
 const PORT = process.env.PORT || 5000;
 
-server.listen(PORT, () => {
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
 
   // Start weekly digest cron job
   const weeklyDigestJob = require('./jobs/weeklyDigest.job');
