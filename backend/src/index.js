@@ -51,14 +51,6 @@ app.use('/api/digest', digestRoutes);
 app.use('/api/user', userRoutes);
 
 // Health check
-app.get('/api/health', (req, res) => {
-  res.status(200).json({
-    status: 'ok',
-    uptime: process.uptime(),
-    timestamp: new Date().toISOString(),
-  });
-});
-
 app.get('/', (req, res) => {
   res.send('TabMind API is running...');
 });

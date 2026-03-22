@@ -133,16 +133,12 @@ export type MessageType =
   | 'MARK_TAB_DONE'
   | 'SET_INTENT'
   | 'GET_USER'
-  | 'OPEN_DASHBOARD'
-  | 'SYNC_NOW';
+  | 'OPEN_DASHBOARD';
 
-export type ExtensionMessage =
-  | { type: 'GET_OPEN_TABS' }
-  | { type: 'MARK_TAB_DONE'; tabId: number }
-  | { type: 'SET_INTENT'; tabId: number; intent: string }
-  | { type: 'GET_USER' }
-  | { type: 'OPEN_DASHBOARD' }
-  | { type: 'SYNC_NOW' };
+export interface ExtensionMessage {
+  type: MessageType;
+  payload?: unknown;
+}
 
 export interface ExtensionMessageResponse<T = unknown> {
   success: boolean;
