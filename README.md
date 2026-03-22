@@ -1,143 +1,148 @@
-# TabMind 🧠
-> The digital memory your browser never had — capture, track, and analyze the intent behind every tab.
+# TabMind
 
-## The Problem
-The average knowledge worker keeps dozens of tabs open, losing the original context and intent within minutes. This leads to browser anxiety, cognitive clutter, and lost productivity as tabs either become permanent residents or get closed along with their important unfulfilled tasks.
+A full-stack ecosystem designed to capture, track, and analyze the intent behind every browser tab. TabMind transforms standard web browsing into a purposeful and structured workflow by bridging the gap between momentary browsing actions and long-term productivity goals.
 
-## What It Does
-TabMind is a Chrome Extension + MERN fullstack ecosystem that captures your intent the moment you open a tab and preserves it forever. Your intents are surfaced contextually on hover, archived in a searchable dashboard graveyard, and analyzed into weekly behavioral insights. It transforms your browser from a chaotic list of URLs into a structured trail of purposeful actions.
+---
 
-## Features
-- 🧠 **Intent Capture**: Non-intrusive popups that ask "Why are you opening this?" the moment a tab appears.
-- 🎴 **Tab Context Card**: Floating hover cards that reveal a tab's intent and active time without clicking.
-- 🤖 **AI Intent Suggestion**: Automatic intent generation using GPT-4o-mini for skipped prompts.
-- ✅ **Fulfillment Tracking**: Status-based tab management (Open, Done, Saved, Abandoned).
-- 🪦 **Tab Graveyard**: A permanent, searchable archive of every closed tab and its original intent.
-- 📂 **Session Groups**: Auto-clustering of related tabs into named workspaces for easy restoration.
-- 📊 **Weekly Focus Digest**: Spotify Wrapped style reports on your browsing habits and "Tab Personality."
-- 🎯 **Focus Mode**: Gentle AI-powered warnings when opening tabs unrelated to your current goal.
+## Overview
 
-## Tech Stack
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
-![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)
-![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
-![Chrome Extension](https://img.shields.io/badge/Chrome_Extension-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)
-![OpenAI](https://img.shields.io/badge/OpenAI-412991?style=for-the-badge&logo=openai&logoColor=white)
-![Socket.io](https://img.shields.io/badge/Socket.io-010101?style=for-the-badge&logo=socketdotio&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+Modern knowledge work often involves managing dozens of concurrent browser tabs, leading to "tab fatigue" and loss of context. TabMind addresses this by requiring users to declare their intent upon opening a new tab. This intent is then preserved, surfaced contextually, and archived for later analysis.
 
-## Architecture
-```text
-┌────────────────────────┐      ┌──────────────────────────┐      ┌────────────────────────┐
-│   Chrome Extension     │      │    Node.js Backend       │      │    React Dashboard     │
-│ (React + Vite + MV3)   │      │   (Express + JWT)        │      │ (Tailwind + Recharts)  │
-└──────────┬─────────────┘      └────────────┬─────────────┘      └────────────┬───────────┘
-           │                                 │                                 │
-           │  1. Capture Intent              │                                 │
-           ├────────────────────────────────>│  2. Store in MongoDB            │
-           │                                 │  3. Emit via Socket.io          │
-           │                                 ├────────────────────────────────>│
-           │                                 │                                 │
-           │ <───────────────────────────────┤                                 │
-           │  4. Refresh Local Cache         │                                 │
-           │                                 │ <───────────────────────────────┤
-           │                                 │  5. Fetch History/Analytics     │
-           │                                 │                                 │
-           └─────────────────────────────────┴─────────────────────────────────┘
-```
+The system consists of three primary components:
+1.  **Chrome Extension**: A high-performance Manifest V3 extension providing real-time intent capture and contextual hover cards.
+2.  **Web Dashboard**: A React-based application for managing live tabs, browsing archives (The Graveyard), and behavioral analytics.
+3.  **Backend Services**: A Node.js/Express API powered by MongoDB for persistence and real-time synchronization via Socket.io.
+
+---
+
+## Visual Demonstration
+
+![TabMind Application Demo](file:///C:/Users/jainp/.gemini/antigravity/brain/838d28de-8036-4a14-b2ca-c799cb677847/tabmind_app_demo_1773839108304.webp)
+
+---
+
+## Key Capabilities
+
+### 1. Unified Intent Capture
+The Chrome extension utilizes a non-intrusive Shadow DOM overlay to prompt users for their intent immediately upon tab creation. This ensures that every tab has a defined purpose from the outset.
+
+### 2. Contextual Awareness (Hover Cards)
+Using an `Alt+I` global shortcut, users can trigger a floating context card that displays the tab's recorded intent, active duration, and fulfillment status without requiring a tab switch.
+
+### 3. The Graveyard (Archive)
+A permanent, searchable repository of all closed tabs. Users can revisit past research sessions, retrieve forgotten URLs, and review the original context in which those pages were opened.
+
+### 4. Behavioral Analytics
+A comprehensive analytics engine that generates weekly focus digests. It tracks fulfillment rates (percentage of tabs closed as 'Done' vs 'Abandoned') and provides deep insights into browsing habits.
+
+---
 
 ## Screenshots
-### ⚡ Intent Popup
-*(Placeholder)*: *A sleek, dark overlay in the top-right corner of a browser page.*
 
-### 📊 Dashboard
-*(Placeholder)*: *The main dashboard with fulfillment rings and live tab tracking.*
+### Main Dashboard
+![Dashboard Overview](file:///C:/Users/jainp/.gemini/antigravity/brain/838d28de-8036-4a14-b2ca-c799cb677847/dashboard_page_1773839149857.png)
 
-### 🪦 Graveyard
-*(Placeholder)*: *The searchable archive of all past tab intents.*
+### The Graveyard
+![Tab Graveyard](file:///C:/Users/jainp/.gemini/antigravity/brain/838d28de-8036-4a14-b2ca-c799cb677847/graveyard_page_1773839153768.png)
 
-### 📧 Weekly Digest
-*(Placeholder)*: *The premium "Tab Personality" card for social sharing.*
+### Behavioral Analytics
+![Analytics Engine](file:///C:/Users/jainp/.gemini/antigravity/brain/838d28de-8036-4a14-b2ca-c799cb677847/analytics_page_1773839158535.png)
 
-## Getting Started
+---
 
-### 1. Clone the repository
+## Technical Architecture
+
+The architecture is designed for low-latency synchronization and high reliability:
+
+1.  **Capture**: The Extension captures intent and beams it to the Backend via REST API.
+2.  **Persistence**: The Backend stores tab metadata and analytics in MongoDB.
+3.  **Real-Time Sync**: Changes are broadcast to the React Dashboard via Socket.io for immediate UI updates.
+4.  **Security**: JWT-based authentication ensures data privacy across the ecosystem.
+
+---
+
+## Technical Stack
+
+| Category | Technologies |
+|---|---|
+| **Frontend** | React 18, Tailwind CSS, Recharts, Lucide Icons |
+| **Backend** | Node.js, Express, MongoDB (Mongoose), Socket.io |
+| **Extension** | Vite, CRXJS, Manifest V3, Content Scripts (Shadow DOM) |
+| **Intelligence** | Groq API (GPT-powered intent suggestions) |
+| **Deployment** | Vercel (Frontend), Render/DigitalOcean (Backend) |
+
+---
+
+## Deployment and Setup
+
+### 1. Prerequisites
+- Node.js (v18+)
+- MongoDB (Local or Atlas)
+- Groq API Key (for AI features)
+
+### 2. Installation
+
+Clone the repository and install dependencies for each component:
+
 ```bash
+# Clone
 git clone https://github.com/PrakharJain345/TabMind.git
 cd TabMind
-```
 
-### 2. Install Dependencies
-Install dependencies for all three major components:
-```bash
-# Backend
+# Install Backend dependencies
 cd backend && npm install
-# Dashboard
+
+# Install Dashboard dependencies
 cd ../dashboard && npm install
-# Extension
+
+# Install Extension dependencies
 cd ../extension && npm install
 ```
 
-### 3. Set Environment Variables
-Create a `.env` file in the `backend` directory based on the following:
+### 3. Environment Configuration
+Create a `.env` file in the `backend/` directory:
+
 ```env
 PORT=5000
-MONGO_URI=your_mongodb_uri
-JWT_SECRET=your_jwt_secret
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secure_jwt_secret
 GROQ_API_KEY=your_groq_api_key
-GOOGLE_CLIENT_ID=your_google_id
-GOOGLE_CLIENT_SECRET=your_google_secret
+GOOGLE_CLIENT_ID=your_google_oauth_id
 DASHBOARD_URL=http://localhost:3000
 ```
 
-### 4. Run the Project
-```bash
-# Start Backend (from /backend)
-npm run dev
+### 4. Running the Development Environment
 
-# Start Dashboard (from /dashboard)
-npm run dev
+```bash
+# Terminal 1: Backend
+cd backend && npm run dev
+
+# Terminal 2: Dashboard
+cd dashboard && npm run dev
+
+# Terminal 3: Extension (Build & Watch)
+cd extension && npm run dev
 ```
 
-### 5. Load the Extension
-1. Open Chrome and navigate to `chrome://extensions/`.
-2. Enable **Developer mode**.
-3. Click **Load unpacked** and select the `/extension/dist` folder (ensure you've run `npm run build` in the extension folder first).
+### 5. Loading the Extension in Chrome
+1.  Navigate to `chrome://extensions/`.
+2.  Enable **Developer mode**.
+3.  Click **Load unpacked**.
+4.  Select the `extension/dist` directory.
 
-## Environment Variables
-| Variable | Description |
-|---|---|
-| `MONGO_URI` | Connection string for MongoDB Atlas |
-| `JWT_SECRET` | Secret key for signing JSON Web Tokens |
-| `GROQ_API_KEY` | Your Groq API key for GPT-powered intent suggestions and personality generation |
-| `GOOGLE_CLIENT_ID` | OAuth2 Client ID from Google Cloud Console |
-| `GOOGLE_CLIENT_SECRET` | OAuth2 Client Secret from Google Cloud Console |
-| `DASHBOARD_URL` | The URL where the React dashboard is running |
+---
 
 ## API Reference
+
 | Method | Endpoint | Description |
 |---|---|---|
-| `POST` | `/api/auth/google` | Public: Google OAuth login, returns JWT |
-| `GET` | `/api/auth/me` | Private: Get current user profile |
-| `POST` | `/api/tabs` | Private: Create new tab record |
-| `PATCH` | `/api/tabs/:id` | Private: Update status, intent, or fulfillment |
-| `GET` | `/api/tabs/graveyard` | Private: Fetch all closed tab history |
-| `GET` | `/api/tabs/open` | Private: Fetch currently active tabs |
-| `POST` | `/api/tabs/ai-intent` | Private: Generate AI intent suggestion |
-| `POST` | `/api/sessions` | Private: Save current tabs as a named session |
-| `GET` | `/api/analytics/overview` | Private: Get lifetime stats and fulfillment trends |
-| `GET` | `/api/digest/latest` | Private: Fetch the most recent weekly digest card |
+| `GET` | `/api/health` | System health check and uptime |
+| `POST` | `/api/auth/google` | User authentication via Google OAuth |
+| `GET` | `/api/tabs/open` | Retrieve currently active tabs |
+| `PATCH` | `/api/tabs/:id` | Update tab status (Done, Abandoned, Saved) |
+| `GET` | `/api/analytics/overview` | Fetch behavioral trends and stats |
 
-## Roadmap
-- [x] Intent capture
-- [x] Tab graveyard  
-- [x] Session groups
-- [x] AI suggestions
-- [x] Weekly digest
-- [ ] Firefox support
-- [ ] Team sessions
-- [ ] Mobile companion app
+---
 
 ## License
-MIT
+This project is licensed under the MIT License.
