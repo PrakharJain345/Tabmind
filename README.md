@@ -15,11 +15,7 @@ The system consists of three primary components:
 
 ---
 
-## Visual Demonstration
 
-![TabMind Application Demo](file:///C:/Users/jainp/.gemini/antigravity/brain/838d28de-8036-4a14-b2ca-c799cb677847/tabmind_app_demo_1773839108304.webp)
-
----
 
 ## Key Capabilities
 
@@ -37,18 +33,6 @@ A comprehensive analytics engine that generates weekly focus digests. It tracks 
 
 ---
 
-## Screenshots
-
-### Main Dashboard
-![Dashboard Overview](file:///C:/Users/jainp/.gemini/antigravity/brain/838d28de-8036-4a14-b2ca-c799cb677847/dashboard_page_1773839149857.png)
-
-### The Graveyard
-![Tab Graveyard](file:///C:/Users/jainp/.gemini/antigravity/brain/838d28de-8036-4a14-b2ca-c799cb677847/graveyard_page_1773839153768.png)
-
-### Behavioral Analytics
-![Analytics Engine](file:///C:/Users/jainp/.gemini/antigravity/brain/838d28de-8036-4a14-b2ca-c799cb677847/analytics_page_1773839158535.png)
-
----
 
 ## Technical Architecture
 
