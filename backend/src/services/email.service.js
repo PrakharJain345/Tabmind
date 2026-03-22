@@ -1,6 +1,9 @@
 const { Resend } = require('resend');
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+let resend;
+if (process.env.RESEND_API_KEY) {
+  resend = new Resend(process.env.RESEND_API_KEY);
+}
 
 /**
  * Send the weekly digest email to a user.
@@ -8,6 +11,11 @@ const resend = new Resend(process.env.RESEND_API_KEY);
  * @param {object} digest - Mongoose Digest document
  */
 async function sendDigestEmail(user, digest) {
+  if (!resend) {
+    console.warn(`[TabMind] Skipping digest email for ${user.email} (RESEND_API_KEY not configured)`);
+    return;
+  }
+
   const { stats, personalityCard, weekOf } = digest;
   const weekLabel = new Date(weekOf).toLocaleDateString('en-US', {
     month: 'long',
