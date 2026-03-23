@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Zap, CheckCircle, Clock, BarChart2, ArrowRight } from 'lucide-react';
+import { Zap, CheckCircle, Clock, BarChart2, ArrowRight, Activity, TrendingUp, Command, Trash2, Github } from 'lucide-react';
 
 const Login = () => {
   const handleGoogleLogin = () => {
@@ -12,34 +12,53 @@ const Login = () => {
 
       {/* ── Navbar ───────────────────────────────────────────────────────── */}
       <nav style={{
-        position: 'fixed', top: 20, left: '50%', transform: 'translateX(-50%)',
-        width: 'calc(100% - 48px)', maxWidth: 1100, zIndex: 100,
-        background: 'rgba(2,6,23,0.7)', backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
-        border: '1px solid rgba(255,255,255,0.08)', borderRadius: 16,
-        padding: '12px 20px',
+        position: 'fixed', top: 24, left: '50%', transform: 'translateX(-50%)',
+        width: 'calc(100% - 48px)', maxWidth: 960, zIndex: 100,
+        background: 'rgba(2, 6, 23, 0.8)', backdropFilter: 'blur(24px)',
+        WebkitBackdropFilter: 'blur(24px)',
+        border: '1px solid rgba(255, 255, 255, 0.12)', borderRadius: 20,
+        padding: '10px 16px',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        boxShadow: '0 0 0 1px rgba(14,165,233,0.1), 0 8px 32px rgba(0,0,0,0.4)',
+        boxShadow: '0 0 0 1px rgba(14, 165, 233, 0.1), 0 20px 40px -12px rgba(0, 0, 0, 0.5), 0 0 20px rgba(14, 165, 233, 0.05)',
       }}>
         <div style={{
           display: 'flex', alignItems: 'center', padding: '6px 14px',
-          fontFamily: '"Cinzel Decorative", serif', fontSize: 26, fontWeight: 700, letterSpacing: '0.05em', color: '#F8FAFC',
+          fontFamily: '"Outfit", sans-serif', fontSize: 22, fontWeight: 700, letterSpacing: '0.08em', color: '#F8FAFC',
+          textTransform: 'uppercase'
         }}>
           TabMind
         </div>
-        <button
-          onClick={handleGoogleLogin}
-          style={{
-            background: 'white', color: '#020617', border: 'none',
-            borderRadius: 10, padding: '8px 20px',
-            fontSize: 14, fontWeight: 600, fontFamily: 'Inter, sans-serif',
-            cursor: 'pointer', transition: 'all 0.2s',
-          }}
-          onMouseEnter={e => { e.currentTarget.style.background = '#38BDF8'; e.currentTarget.style.color = 'white'; }}
-          onMouseLeave={e => { e.currentTarget.style.background = 'white'; e.currentTarget.style.color = '#020617'; }}
-        >
-          Sign in
-        </button>
+        <div className="flex gap-10 items-center px-4">
+          <a href="#features" className="text-[12px] font-semibold text-slate-400 hover:text-white transition-colors uppercase tracking-[0.25em]">Features</a>
+          <a href="#about" className="text-[12px] font-semibold text-slate-400 hover:text-white transition-colors uppercase tracking-[0.25em]">About</a>
+        </div>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={handleGoogleLogin}
+            className="text-[11px] font-semibold text-slate-400 hover:text-white transition-colors uppercase tracking-[0.25em] px-2"
+          >
+            Sign in
+          </button>
+          <div className="h-4 w-[1px] bg-white/10" />
+          <button
+            onClick={handleGoogleLogin}
+            className="px-6 py-2.5 bg-sky-500/10 border border-sky-500/20 text-sky-400 text-[11px] font-bold rounded-full hover:bg-sky-500/20 hover:shadow-[0_0_15px_rgba(14,165,233,0.15)] transition-all uppercase tracking-[0.2em]"
+          >
+            Get Started
+          </button>
+          
+          <div className="h-6 w-[1px] bg-white/10 mx-1" />
+          
+          <a
+            href="https://github.com/PrakharJain345/Tabmind"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 border border-white/10 text-slate-400 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all group"
+            title="View on GitHub"
+          >
+            <Github size={18} className="group-hover:scale-110 transition-transform" />
+          </a>
+        </div>
       </nav>
 
       {/* ── Dot Grid Overlay ─────────────────────────────────────────────── */}
@@ -66,105 +85,48 @@ const Login = () => {
 
       {/* ── Floating Product Demo Cards ──────────────────────────────────── */}
 
-      {/* Intent popup card — top right */}
-      <motion.div
-        animate={{ y: [0, -16, -8, 0], rotate: [0, 1, -0.5, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-        style={{
-          position: 'absolute', top: '18%', right: '7%', width: 256, zIndex: 1,
-          background: 'rgba(2, 6, 23, 0.85)', backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(255,255,255,0.08)', borderRadius: 16,
-          padding: '16px 18px',
-          boxShadow: '0 8px 32px rgba(0,0,0,0.45), 0 0 0 1px rgba(14,165,233,0.12)',
-        }}
-        className="hidden lg:block"
-      >
-        <p style={{ fontSize: 11, fontWeight: 600, color: '#38BDF8', marginBottom: 10, fontFamily: 'Inter, sans-serif', letterSpacing: 1, textTransform: 'uppercase' }}>Why did you open this?</p>
-        <div style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(14,165,233,0.3)', borderRadius: 8, padding: '7px 10px', fontSize: 12, color: '#38BDF8', marginBottom: 12, fontFamily: 'Inter, sans-serif' }}>
-          Research pricing for the project...
-        </div>
-        <div style={{ display: 'flex', gap: 8 }}>
-          <div style={{ flex: 1, background: 'linear-gradient(135deg,#0EA5E9,#10B981)', color: 'white', borderRadius: 6, padding: '6px 0', fontSize: 11, fontWeight: 600, textAlign: 'center', fontFamily: 'Inter, sans-serif' }}>Save</div>
-          <div style={{ flex: 1, background: 'rgba(255,255,255,0.04)', color: '#64748B', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 6, padding: '6px 0', fontSize: 11, textAlign: 'center', fontFamily: 'Inter, sans-serif' }}>Skip</div>
-        </div>
-      </motion.div>
+      {/* Sidebars moved inside Hero section to avoid scroll overlaps */}
 
-      {/* Stats card — bottom left */}
-      <motion.div
-        animate={{ y: [0, -20, 0], rotate: [0, -1, 0] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-        style={{
-          position: 'absolute', bottom: '22%', left: '6%', width: 200, zIndex: 1,
-          background: 'rgba(2, 6, 23, 0.85)', backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(255,255,255,0.08)', borderRadius: 16, padding: '16px 18px',
-          boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-        }}
-        className="hidden lg:block"
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
-          <div style={{ width: 28, height: 28, borderRadius: 8, background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <CheckCircle size={14} style={{ color: '#10B981' }} />
+      {/* Floating Demo Cards Removed for Minimalist Aesthetic */}
+
+      {/* ── Main Content Scroll Container ────────────────────────────────── */}
+      <div className="relative z-[2] w-full overflow-y-auto overflow-x-hidden h-screen snap-y snap-proximity scroll-smooth">
+        
+        {/* ── Section: Hero ─────────────────────────────────────────────── */}
+        <section className="min-h-screen flex flex-col items-center justify-center text-center px-6 snap-start relative">
+          
+          {/* Sidebars Restricted to ONLY Hero to prevent overlap during scroll */}
+          {/* Left Sidebar */}
+          <div style={{
+            position: 'absolute', top: '50%', left: '3%', transform: 'translateY(-50%)',
+            width: 220, zIndex: 1, display: 'flex', flexDirection: 'column', gap: 10,
+          }} className="hidden 2xl:flex">
+            <p className="text-[9px] font-bold text-slate-600 uppercase tracking-[0.4em] mb-4 px-2 text-left">Activity Stream</p>
+            {[
+              { label: 'System optimized', meta: 'Just now', active: true },
+              { label: '4 tabs hibernated', meta: '2m ago', active: false },
+              { label: 'Deep focus detected', meta: '5m ago', active: false },
+            ].map((item, i) => (
+              <div key={i} className="flex items-start gap-4 p-3 opacity-40">
+                <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-slate-700" />
+                <div className="text-left">
+                  <p className="text-[11px] text-slate-400 font-medium">{item.label}</p>
+                </div>
+              </div>
+            ))}
           </div>
-          <span style={{ fontSize: 12, fontWeight: 600, color: '#F8FAFC', fontFamily: 'Inter, sans-serif' }}>Today's Focus</span>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-          <span style={{ fontSize: 11, color: '#64748B', fontFamily: 'Inter, sans-serif' }}>Fulfilled</span>
-          <span style={{ fontSize: 11, color: '#10B981', fontWeight: 600, fontFamily: 'Inter, sans-serif' }}>8 tabs</span>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <span style={{ fontSize: 11, color: '#64748B', fontFamily: 'Inter, sans-serif' }}>Streak</span>
-          <span style={{ fontSize: 11, color: '#38BDF8', fontWeight: 600, fontFamily: 'Inter, sans-serif' }}>🔥 5 days</span>
-        </div>
-      </motion.div>
 
-      {/* Fulfillment badge — top left */}
-      <motion.div
-        animate={{ y: [0, -12, -6, 0], rotate: [0, 0.5, -0.3, 0] }}
-        transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-        style={{
-          position: 'absolute', top: '28%', left: '9%', width: 176, zIndex: 1,
-          background: 'rgba(2, 6, 23, 0.85)', backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(255,255,255,0.08)', borderRadius: 16, padding: '14px 16px',
-          boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-        }}
-        className="hidden lg:block"
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
-          <BarChart2 size={14} style={{ color: '#2DD4BF' }} />
-          <span style={{ fontSize: 11, fontWeight: 600, color: '#F8FAFC', fontFamily: 'Inter, sans-serif' }}>Weekly Rate</span>
-        </div>
-        <div style={{ fontSize: 28, fontWeight: 800, fontFamily: 'Syne, sans-serif', background: 'linear-gradient(135deg,#38BDF8,#10B981)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', lineHeight: 1 }}>73%</div>
-        <div style={{ fontSize: 10, color: '#64748B', marginTop: 4, fontFamily: 'Inter, sans-serif' }}>↑ 12% from last week</div>
-      </motion.div>
-
-      {/* Hover card — bottom right */}
-      <motion.div
-        animate={{ y: [0, -14, -6, 0], rotate: [0, -1, 0.5, 0] }}
-        transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut', direction: 'reverse' }}
-        style={{
-          position: 'absolute', bottom: '18%', right: '5%', width: 228, zIndex: 1,
-          background: 'rgba(2, 6, 23, 0.85)', backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(255,255,255,0.08)', borderRadius: 16, padding: '14px 16px',
-          boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-        }}
-        className="hidden lg:block"
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
-          <Clock size={13} style={{ color: '#94A3B8' }} />
-          <span style={{ fontSize: 11, color: '#94A3B8', fontFamily: 'Inter, sans-serif', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>notion.so/workspace</span>
-        </div>
-        <div style={{ background: 'rgba(14,165,233,0.08)', borderLeft: '2px solid #0EA5E9', borderRadius: 4, padding: '8px 10px', marginBottom: 10 }}>
-          <div style={{ fontSize: 10, color: '#0EA5E9', fontWeight: 600, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 3, fontFamily: 'Inter, sans-serif' }}>Intent</div>
-          <div style={{ fontSize: 12, color: '#F8FAFC', fontFamily: 'Inter, sans-serif' }}>Update sprint board</div>
-        </div>
-        <div style={{ display: 'flex', gap: 6 }}>
-          <div style={{ flex: 1, background: 'rgba(16,185,129,0.1)', color: '#10B981', border: '1px solid rgba(16,185,129,0.2)', borderRadius: 6, padding: '5px 0', fontSize: 10, fontWeight: 600, textAlign: 'center', fontFamily: 'Inter, sans-serif' }}>Mark Done</div>
-          <div style={{ flex: 1, background: 'rgba(14,165,233,0.1)', color: '#38BDF8', border: '1px solid rgba(14,165,233,0.2)', borderRadius: 6, padding: '5px 0', fontSize: 10, textAlign: 'center', fontFamily: 'Inter, sans-serif' }}>Edit</div>
-        </div>
-      </motion.div>
-
-      {/* ── Main Content ─────────────────────────────────────────────────── */}
-      <div style={{ position: 'relative', zIndex: 2, minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: '40px 24px' }}>
+          {/* Right Sidebar */}
+          <div style={{
+            position: 'absolute', top: '50%', right: '3%', transform: 'translateY(-50%)',
+            width: 240, zIndex: 1, display: 'flex', flexDirection: 'column', gap: 20,
+          }} className="hidden 2xl:flex">
+            <p className="text-[9px] font-bold text-slate-600 uppercase tracking-[0.4em] px-2 text-right">Performance Index</p>
+            <div className="bg-slate-900/40 border border-white/5 rounded-2xl p-6 backdrop-blur-xl text-left opacity-60">
+              <div className="text-3xl font-light text-white tracking-tight">82%</div>
+              <p className="text-[9px] text-slate-500 uppercase tracking-widest mt-1">Efficiency</p>
+            </div>
+          </div>
 
         {/* Badge */}
         <motion.div
@@ -268,7 +230,6 @@ const Login = () => {
           </p>
         </motion.div>
 
-        {/* Feature pills row */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -276,27 +237,129 @@ const Login = () => {
           style={{ display: 'flex', gap: 12, marginTop: 48, flexWrap: 'wrap', justifyContent: 'center' }}
         >
           {[
-            { icon: '⚡', label: 'Intent Capture' },
-            { icon: '📊', label: 'Weekly Digest' },
-            { icon: '⌨️', label: 'Alt + I Shortcut' },
-            { icon: '🪦', label: 'Tab Graveyard' },
+            { icon: <Zap size={12} />, label: 'Intent Capture' },
+            { icon: <Activity size={12} />, label: 'Weekly Digest' },
+            { icon: <Clock size={12} />, label: 'Focus Analysis' },
+            { icon: <CheckCircle size={12} />, label: 'Tab Control' },
           ].map(({ icon, label }) => (
             <div key={label} style={{
-              display: 'inline-flex', alignItems: 'center', gap: 6,
-              background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)',
-              borderRadius: 100, padding: '6px 14px',
-              fontSize: 13, color: '#64748B', fontFamily: 'Inter, sans-serif',
+              display: 'inline-flex', alignItems: 'center', gap: 8,
+              background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)',
+              borderRadius: 100, padding: '8px 16px',
+              fontSize: 11, fontWeight: 500, color: '#64748B', fontFamily: 'Inter, sans-serif',
+              textTransform: 'uppercase', letterSpacing: '0.1em'
             }}>
-              <span>{icon}</span>
+              <span className="text-sky-500/60">{icon}</span>
               <span>{label}</span>
             </div>
           ))}
         </motion.div>
+      </section>
+
+        {/* ── Section: Features (The High-Fidelity Stack) ────────────────── */}
+        <section id="features" className="min-h-screen py-32 px-10 max-w-6xl mx-auto snap-start flex flex-col justify-center">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-24 text-left border-l-2 border-sky-500/20 pl-10"
+          >
+            <h2 className="text-5xl md:text-7xl font-bold text-white mb-8 tracking-tighter leading-none">
+              A browser that <br/> <span className="text-sky-500">knows your time.</span>
+            </h2>
+            <p className="text-slate-500 text-lg md:text-xl max-w-xl font-medium leading-relaxed">
+              Generic browsers are built for consumption. <br/>
+              TabMind is built for your production.
+            </p>
+          </motion.div>
+
+          <div className="space-y-4">
+            {/* Feature Row 1: Intent */}
+            <motion.div 
+              whileHover={{ x: 10 }}
+              className="group bg-slate-900/20 border-y border-white/5 py-16 flex flex-col md:flex-row items-center gap-16 transition-all"
+            >
+              <div className="flex-1">
+                <div className="text-sky-400 font-mono text-xs mb-4">01 // PSYCHOLOGY</div>
+                <h3 className="text-4xl font-bold text-white mb-6 tracking-tight">Intent-First Browsing</h3>
+                <p className="text-slate-400 text-lg leading-relaxed max-w-md">
+                  We don't just open tabs. We capture the "Why." Before you lose 3 hours in a rabbit hole, TabMind asks for your commitment.
+                </p>
+              </div>
+              <div className="w-full md:w-[400px] h-[240px] bg-slate-800/30 rounded-3xl border border-white/5 relative overflow-hidden flex items-center justify-center">
+                 <Zap size={80} className="text-sky-500/20" />
+                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent opacity-60" />
+              </div>
+            </motion.div>
+
+            {/* Feature Row 2: Hibernation */}
+            <motion.div 
+              whileHover={{ x: -10 }}
+              className="group border-b border-white/5 py-16 flex flex-col md:flex-row-reverse items-center gap-16 transition-all"
+            >
+              <div className="flex-1 text-left md:text-right">
+                <div className="text-emerald-400 font-mono text-xs mb-4">02 // ARCHITECTURE</div>
+                <h3 className="text-4xl font-bold text-white mb-6 tracking-tight">Hibernation Engine</h3>
+                <p className="text-slate-400 text-lg leading-relaxed max-w-md ml-auto">
+                  TabMind identifies stale context and freezes it. Save your RAM for what matters: the task at hand.
+                </p>
+              </div>
+              <div className="w-full md:w-[400px] h-[240px] bg-slate-800/30 rounded-3xl border border-white/5 relative overflow-hidden flex items-center justify-center">
+                 <Activity size={80} className="text-emerald-500/20" />
+                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent opacity-60" />
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ── Section: About Us (Philosophy) ───────────────────────────── */}
+        <section id="about" className="min-h-screen py-32 px-6 bg-slate-950/50 backdrop-blur-sm snap-start relative overflow-hidden">
+          <div className="max-w-4xl mx-auto relative z-10">
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="text-left"
+            >
+              <span className="text-sky-400 font-bold uppercase tracking-[0.4em] text-[10px] block mb-8">The Philosophy</span>
+              <h2 className="text-5xl md:text-8xl font-black text-white mb-16 tracking-tighter leading-[0.9]">
+                Reclaim your digital <span className="text-slate-800">sovereignty.</span>
+              </h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+                <div>
+                  <p className="text-slate-400 text-lg leading-relaxed mb-8">
+                    Modern browsers are built to keep you scrolling. TabMind is built to keep you thinking. 
+                    We believe that every tab opened is a commitment of focus — a commitment we help you honor.
+                  </p>
+                  <p className="text-slate-400 text-lg leading-relaxed">
+                    By bridging the gap between automated systems and human intent, we're cooking something enormous: 
+                    A browser experience that actually respects your time.
+                  </p>
+                </div>
+                <div className="flex flex-col justify-end">
+                   <p className="font-['Caveat'] text-4xl text-sky-400/80 leading-snug mb-4">
+                    "We don't need faster browsers. We need more conscious ones."
+                   </p>
+                   <p className="text-slate-600 uppercase tracking-widest text-[9px] font-bold">— TabMind Core Team</p>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Background Decorative Element for "Huge" feel */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-sky-500/5 blur-[120px] rounded-full pointer-events-none" />
+        </section>
+
+        {/* ── Footer-ish ── */}
+        <section className="py-20 text-center border-t border-white/5 opacity-40">
+           <p className="text-[10px] text-slate-500 uppercase tracking-widest">© 2026 TabMind</p>
+        </section>
       </div>
 
       {/* ── Google Fonts & Keyframes ─── */}
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Playfair+Display:ital,wght@0,700;1,700&family=Outfit:wght@600&family=Inter:wght@400;500;600;700;800;900&display=swap');
         
         @keyframes badge-pulse {
           0%, 100% { border-color: rgba(14,165,233,0.3); box-shadow: none; }
