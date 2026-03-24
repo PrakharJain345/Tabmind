@@ -209,17 +209,19 @@ const Dashboard = () => {
           </div>
         </Card>
 
-        {/* Current Streak */}
-        <Card accent={false} className="flex flex-col justify-between items-start text-left p-6 border-l-[3px] border-l-[var(--pink-500)] bg-[linear-gradient(135deg,var(--red-fade)_0%,rgba(15,15,26,0.7)_100%)]">
+        {/* Context Restoration */}
+        <Card accent={false} className="flex flex-col justify-between items-start text-left p-6 border-l-[3px] border-l-emerald-500 bg-[linear-gradient(135deg,rgba(16,185,129,0.05)_0%,rgba(15,15,26,0.7)_100%)]">
           <div className="flex w-full items-center justify-between mb-4">
-            <h3 className="card-title !mb-0 text-[var(--pink-400)] text-sm uppercase tracking-wider font-bold">Current Streak</h3>
-            <Flame size={20} className="text-[var(--pink-500)] drop-shadow-[0_0_8px_rgba(20,184,166,0.4)]" />
+            <h3 className="card-title !mb-0 text-emerald-400 text-sm uppercase tracking-wider font-bold">Context Restoration</h3>
+            <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+              <Check size={16} className="text-emerald-400" />
+            </div>
           </div>
           <div className="flex items-baseline gap-2 mt-auto">
-            <span className="font-display text-4xl font-bold text-white leading-none">
-              {streak}
+            <span className="font-outfit text-[40px] font-extrabold text-white leading-none tracking-tighter">
+              12
             </span>
-            <span className="text-text-muted text-sm font-medium">days straight</span>
+            <span className="text-text-muted text-sm font-medium">tabs restored today</span>
           </div>
         </Card>
 

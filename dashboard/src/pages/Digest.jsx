@@ -167,22 +167,22 @@ const Digest = () => {
               Week {digest.weekNumber} Report
             </span>
             <div className="flex items-center gap-2 mt-4">
-              <span className="font-display text-2xl font-bold text-white">You were a</span>
+              <span className="font-display text-xl font-bold text-white/90">You were a</span>
             </div>
-            <h2 className="font-display text-4xl font-extrabold pb-2 bg-gradient-to-r from-[var(--purple-400)] to-[var(--pink-400)] bg-clip-text text-transparent transform scale-105">
+            <h2 className="font-['Instrument Serif'] italic text-5xl pb-2 bg-gradient-to-r from-sky-300 via-emerald-400 to-emerald-500 bg-clip-text text-transparent leading-none">
               {personalityType}
             </h2>
-            <p className="text-sm text-white/70 max-w-[280px] mt-2">
+            <p className="text-[13px] text-white/60 italic max-w-[280px] mt-2">
               "{personalityDesc}"
             </p>
           </div>
 
           {/* Main Stat */}
-          <div className="z-10 flex flex-col items-center justify-center my-6">
-            <div className="font-display text-[80px] leading-none font-black text-white drop-shadow-[0_0_20px_rgba(167,139,250,0.5)]">
+          <div className="z-10 flex flex-col items-center justify-center my-4">
+            <div className="font-outfit text-[64px] leading-none font-extrabold text-white tracking-tighter">
               {fulfillmentThreshold}%
             </div>
-            <span className="text-sm font-semibold uppercase tracking-wider text-[var(--success)] mt-2 flex items-center gap-1">
+            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-emerald-400/80 mt-3 flex items-center gap-1">
               Fulfillment Rate
             </span>
           </div>

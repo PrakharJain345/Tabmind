@@ -22,11 +22,19 @@ const Login = () => {
         boxShadow: '0 0 0 1px rgba(14, 165, 233, 0.1), 0 20px 40px -12px rgba(0, 0, 0, 0.5), 0 0 20px rgba(14, 165, 233, 0.05)',
       }}>
         <div style={{
-          display: 'flex', alignItems: 'center', padding: '6px 14px',
-          fontFamily: '"Outfit", sans-serif', fontSize: 22, fontWeight: 700, letterSpacing: '0.08em', color: '#F8FAFC',
-          textTransform: 'uppercase'
+          display: 'flex', alignItems: 'center', gap: 12, padding: '6px 14px'
         }}>
-          TabMind
+          <img 
+            src="/logo.png" 
+            alt="Logo" 
+            style={{ height: 32, width: 32, borderRadius: 8, objectFit: 'cover' }}
+          />
+          <div style={{
+            fontFamily: '"Outfit", sans-serif', fontSize: 22, fontWeight: 700, letterSpacing: '0.08em', color: '#F8FAFC',
+            textTransform: 'uppercase'
+          }}>
+            TabMind
+          </div>
         </div>
         <div className="flex gap-10 items-center px-4">
           <a href="#features" className="text-[12px] font-semibold text-slate-400 hover:text-white transition-colors uppercase tracking-[0.25em]">Features</a>
@@ -337,8 +345,8 @@ const Login = () => {
                     A browser experience that actually respects your time.
                   </p>
                 </div>
-                <div className="flex flex-col justify-end">
-                   <p className="font-['Caveat'] text-4xl text-sky-400/80 leading-snug mb-4">
+                 <div className="flex flex-col justify-end">
+                   <p className="font-['Instrument Serif'] italic text-3xl md:text-4xl text-sky-400/80 leading-relaxed mb-4 tracking-normal">
                     "We don't need faster browsers. We need more conscious ones."
                    </p>
                    <p className="text-slate-600 uppercase tracking-widest text-[9px] font-bold">— TabMind Core Team</p>
@@ -359,7 +367,7 @@ const Login = () => {
 
       {/* ── Google Fonts & Keyframes ─── */}
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Playfair+Display:ital,wght@0,700;1,700&family=Outfit:wght@600&family=Inter:wght@400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Instrument+Serif:ital@0;1&family=Playfair+Display:ital,wght@0,700;1,700&family=Outfit:wght@600&family=Inter:wght@400;500;600;700;800;900&display=swap');
         
         @keyframes badge-pulse {
           0%, 100% { border-color: rgba(14,165,233,0.3); box-shadow: none; }
